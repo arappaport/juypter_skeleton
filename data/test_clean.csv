@@ -1,0 +1,10 @@
+﻿label,text, int,end
+r-empty-ok,,1,end
+r-sp-ok,  ,2,end
+r-leading-ok,          leading_sp,3,end
+r-ok-empty, val,,end
+r-ok-spaces, val,  ,end
+r-ok-leading, val,"  4",end
+r-good,val,0,end
+r-All Empty,,
+,Empty Label,
