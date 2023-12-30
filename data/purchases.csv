@@ -1,8 +1,9 @@
 ﻿user,date,product,price
-A,2023-05-31,prod-a,  17
-B,2023-06-01,prod-d,
-C,2023-05-01,prod-c,256
-D,  ,prod-a,118
+A,2023-05-31,  prod-a,  17
+B,2023-06-01,prod-a,
+C,2023-05-01,prod-b,256
+D,2023-06-01,prod-a,118
+D,2023-05-15,prod-a,224
 A,2023-02-04,prod-d,939
 B,2023-02-07,prod-b,57
 C,2023-02-10,prod-a,323

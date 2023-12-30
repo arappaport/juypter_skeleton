@@ -5,10 +5,9 @@ LOGGER = logging.getLogger(__name__)
 LOGGER = logging.getLogger('arappaport')
 LOGGER.debug("log level = %s", str(LOGGER.getEffectiveLevel()))
 
-
 def fix_empty_cells(df:pd.DataFrame, inplace:bool=False)->pd.DataFrame:
     """
-    Update all empty cells to be None.
+    Update all empty cells to be None. This has the side effect of stripping leading whitespace.
     Empty can be:
        - empty string
        - whitespace only string
@@ -17,16 +16,22 @@ def fix_empty_cells(df:pd.DataFrame, inplace:bool=False)->pd.DataFrame:
     :return: Updated dataframe with all empty cells changed to None's
     """
 
-    df = df.copy() if inplace == True else df
+    df = df if inplace == True else df.copy()
 
     string_cols = df.select_dtypes(include=['object'])
-    df[string_cols.columns] = string_cols.apply(lambda x: x.str.strip())
+
+    print("string_cols: ", string_cols.columns)
+
+    df[string_cols.columns] = df[string_cols.columns].apply(lambda x: x.str.strip())
     df.replace('', None, inplace=True)
     return df
 
 def check_df(df :pd.DataFrame, required_columns :[str ] =None, required_values :[str ] =None , )->str:
     """
-    Check and clean values in dataframe. Original df is returned unchanged or throws exception
+    basic check of a dataframe. Returns a string with error descriptions or None if no errors.
+    Example use:  After loading a DF from a csv or some other source.
+       - required columns exist (case-sensitive)
+       - certain columns have non-empty values for each cell.
     :param df:   raw dataframe.
     :param required_columns: optional - Names of df columns that must be present - even if empty
     :param required_values: optional - Names of df columns that must have values.  Error if any of them have missing values.
